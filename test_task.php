@@ -31,7 +31,7 @@ foreach($orders as $order){
 		$auth_url = $input['auth_url']."?order_id={$order['order_id']}&secure_key={$key}";
 		$invoice_id = order_submit($input["submit_url"]."?order_id={$order['order_id']}&amount={$order['sum_prices']}&prices={$order['list_prices']}&auth_url={$auth_url}");
 		
-		$result[$order['order_id']]['has_error'] = false;
+		$result[$order['order_id']]['has_error'] = !empty($result[$order['order_id']]['has_error']) && $result[$order['order_id']]['has_error'] ? true : false;
 	} catch (Exception $e) {
 		$result[$order['order_id']]['has_error'] = true;
 	}
